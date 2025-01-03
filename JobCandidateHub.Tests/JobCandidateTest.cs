@@ -10,9 +10,19 @@ using System.Net.Http.Json;
 
 namespace JobCandidateHub.Tests
 {
-    public class JobCandidateTest
+    public class JobCandidateTest: IClassFixture<WebApplicationFactory<Program>>
+
     {
-       
+        private readonly HttpClient _client;
+        private readonly WebApplicationFactory<Program> _factory;
+
+        public JobCandidateTest(WebApplicationFactory<Program> factory)
+        {
+            _factory = factory;
+            _client = _factory.CreateClient(); // Use the client to make requests to the API
+
+        }
+
         [Fact]
         public async Task AddCandidate_ValidCandidate_ReturnsCreated()
         {
