@@ -13,13 +13,18 @@ namespace JobCandidateHubAPI
         [Required]
         public string LastName { get; set; }
 
+        [Phone]
+        public string PhoneNumber { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Phone]
-        public string PhoneNumber { get; set; }
-
-        public DateTime DateOfBirth { get; set; }
+        public string TimeInterval { get; set; }
+        public string LinkedInProfileURL { get; set; }
+        public string GitHubProfileURL { get; set; }
+        
+        [Required]
+        public string Comment { get; set; }
     }
 }

@@ -18,15 +18,15 @@ builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 var app = builder.Build();
 
 app.MapPost("/api/candidates", (Candidate candidate, ICandidateRepository repository) => {
-    var existingCandidate = repository.GetByEmail(candidate.Email);
-    if (candidate.Id == 0 || existingCandidate == null)
+    var existingCandidate = repository.ExistsByEmail(candidate.Email);
+    if (candidate.Id > 0 || existingCandidate)
     {
-        repository.Add(candidate);
-        return Results.Created($"/api/candidates/{candidate.Id}", candidate);
+        repository.Update(candidate);
+        return Results.Ok(candidate);
     }
     else
     {
-        repository.Update(candidate);
+        repository.Add(candidate);
         return Results.Created($"/api/candidates/{candidate.Id}", candidate);
     }
 });

@@ -4,6 +4,6 @@
     {
         void Add(Candidate candidate); 
         void Update(Candidate candidate);
-        Candidate GetByEmail(string email);
+        bool ExistsByEmail(string email);
     }
 }
