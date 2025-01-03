@@ -22,7 +22,7 @@ namespace JobCandidateHubAPI.Repository
             if (!_cache.TryGetValue(EmailCacheKey, out HashSet<string> emailSet))
             {
                 emailSet =_context.Candidates.Select(c => c.Email).ToHashSet();
-                _cache.Set(EmailCacheKey, emailSet, TimeSpan.FromMinutes(10));
+                _cache.Set(EmailCacheKey, emailSet, TimeSpan.FromMinutes(5));
             }
             if (emailSet.Contains(email)) { 
                 return  await _context.Candidates.FirstOrDefaultAsync(c => c.Email == email);
