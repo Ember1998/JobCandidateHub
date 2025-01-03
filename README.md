@@ -10,6 +10,7 @@
 - Since, the email of candidate should be used as unique identifier, if email duplicate is found then it'll update the whole record of that candidate associated with that email.
 - Time Interval pattern of candidate model should be this pattern **(e.g 1 hours 30 minutes)**
 - Email should be valid.
+- Automated database migration after running
 
 ## List of Improvements
 - **Improve error handling:** The current implementation has basic error logging, but it should be extended to handle more edge cases and provide more informative error messages.
