@@ -19,6 +19,13 @@ builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
+// Apply migrations automatically on startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CandidateDbContext>();
+    dbContext.Database.Migrate();  
+}
+
 app.MapPost("/api/candidates",async (Candidate candidate, ICandidateRepository repository) => {
     var validationResult = ValidateModel(candidate);
     if (validationResult.Any())
