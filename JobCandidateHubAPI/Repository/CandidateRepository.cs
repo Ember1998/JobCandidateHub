@@ -16,8 +16,7 @@ namespace JobCandidateHubAPI.Repository
             _cache = cache;
 
         }
-        public async Task<List<Candidate>> GetAllAsync() => await _context.Candidates.ToListAsync();
-        public async Task<Candidate> GetByIdAsync(int id)=>await _context.Candidates.FindAsync(id);
+
         public async Task<Candidate> ExistsByEmail(string email)
         {
             if (!_cache.TryGetValue(EmailCacheKey, out HashSet<string> emailSet))
