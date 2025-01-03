@@ -10,6 +10,12 @@ namespace JobCandidateHubAPI.DataAccess
         }
 
         public DbSet<Candidate> Candidates { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.Email)
+                .IsUnique();
+        }
 
     }
 }

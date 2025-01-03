@@ -1,4 +1,5 @@
 ﻿using JobCandidateHubAPI.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace JobCandidateHubAPI.Repository
@@ -15,20 +16,25 @@ namespace JobCandidateHubAPI.Repository
             _cache = cache;
 
         }
-        public bool ExistsByEmail(string email)
+        public async Task<List<Candidate>> GetAllAsync() => await _context.Candidates.ToListAsync();
+        public async Task<Candidate> GetByIdAsync(int id)=>await _context.Candidates.FindAsync(id);
+        public async Task<Candidate> ExistsByEmail(string email)
         {
             if (!_cache.TryGetValue(EmailCacheKey, out HashSet<string> emailSet))
             {
-                emailSet = _context.Candidates.Select(c => c.Email).ToHashSet();
+                emailSet =_context.Candidates.Select(c => c.Email).ToHashSet();
                 _cache.Set(EmailCacheKey, emailSet, TimeSpan.FromMinutes(10));
             }
-            return emailSet.Contains(email);
+            if (emailSet.Contains(email)) { 
+                return  await _context.Candidates.FirstOrDefaultAsync(c => c.Email == email);
+            }
+            return null;
         }
 
-        public void Add(Candidate candidate)
+        public async Task Add(Candidate candidate)
         {
-            _context.Candidates.Add(candidate);
-            _context.SaveChanges();
+            await _context.Candidates.AddAsync(candidate);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Candidate candidate)

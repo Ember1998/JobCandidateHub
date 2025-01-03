@@ -20,6 +20,7 @@ namespace JobCandidateHubAPI
         [EmailAddress]
         public string Email { get; set; }
 
+        [RegularExpression(@"^(\d+)\s*(hours?|h)\s*(\d+)\s*(minutes?|m)$", ErrorMessage = "Time Interval is in invalid formate")]
         public string TimeInterval { get; set; }
         public string LinkedInProfileURL { get; set; }
         public string GitHubProfileURL { get; set; }

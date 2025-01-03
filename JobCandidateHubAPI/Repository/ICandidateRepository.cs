@@ -2,8 +2,8 @@
 {
     public interface ICandidateRepository
     {
-        void Add(Candidate candidate); 
+        Task Add(Candidate candidate); 
         void Update(Candidate candidate);
-        bool ExistsByEmail(string email);
+        Task<Candidate> ExistsByEmail(string email);
     }
 }
